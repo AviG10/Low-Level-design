@@ -1,0 +1,34 @@
+# IntelliJ IDEA
+.idea/
+out/
+*.iml
+*.iws
+*.ipr
+*.ipt
+
+# VS Code
+.vscode/
+
+# Compiled files
+*.class
+
+# Build outputs
+target/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Package files
+*.jar
+*.war
+*.rar
+*.zip
+
+# Misc
+*.log
+.gradle/
+.classpath
+.project
+.settings/
