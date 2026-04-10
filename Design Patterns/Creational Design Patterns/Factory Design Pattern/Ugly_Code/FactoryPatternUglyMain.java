@@ -6,7 +6,7 @@ import Ugly_Code.VehicleTypes.Truck;
 
 import java.util.Scanner;
 
-public class Main {
+public class FactoryPatternUglyMain {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Vehicle Type: ");
