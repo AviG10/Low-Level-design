@@ -25,6 +25,17 @@ A comprehensive learning repository covering essential design patterns and LLD i
 ## 🎯 LLD Interview Questions
 - **Tic Tac Toe** - Game logic implementation
 
+## 🏗️ SOLID Design Principles
+
+*Each principle folder contains `Good_Code/` and `Ugly_Code/` implementations*
+
+- **Single Responsibility Principle (SRP)** - A class should have only one reason to change
+- **Open/Closed Principle (OCP)** - Open for extension, closed for modification
+- **Liskov Substitution Principle (LSP)** - Derived classes should substitute base classes
+- **Interface Segregation Principle (ISP)** - Clients shouldn't depend on interfaces they don't use
+- **Dependency Inversion Principle (DIP)** - Depend on abstractions, not concrete implementations
+
+
 ## 📖 How to Learn
 
 | Step | Action |
