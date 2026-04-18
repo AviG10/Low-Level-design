@@ -1,6 +1,6 @@
 package Ugly_Code;
 
-public class ObserverDesignUglyMain {
+public class ObserverPatternUglyMain {
     public static void main(String[] args){
         Subscriber alice = new Subscriber("Alice");
         Subscriber bob = new Subscriber("Bob");

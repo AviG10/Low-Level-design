@@ -5,7 +5,7 @@ import Good_Code.Implementations.PushNotificationSubscriber;
 import Good_Code.Implementations.SmsNotificationSubscriber;
 import Good_Code.Implementations.YoutubeChannelImpl;
 
-public class ObserverDesignGoodMain {
+public class ObserverPatternGoodMain {
     public static void main(String[] args) {
         PushNotificationSubscriber alice = new PushNotificationSubscriber("Alice");
         EmailNotificationSubscriber bob = new EmailNotificationSubscriber("Bob");
