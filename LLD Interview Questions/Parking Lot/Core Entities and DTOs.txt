@@ -1,0 +1,99 @@
+---------------------------------- Core Entities -------------------------------
+
+1. Vehicle
+    id: UUID (PK)
+    licensePlate: String
+    vehicleType: Enum ( BIKE, CAR, TRUCK, EV )
+
+
+2. ParkingSlot
+    id: UUID (PK)
+    slotType: Enum ( BIKE, CAR, TRUCK, EV )
+    isOccupied: Boolean
+    floorNumber: int
+
+
+3. Floor
+    id: UUID (PK)
+    floorNumber: int
+    slots: List<ParkingSlot>
+
+
+4. Ticket
+    id: UUID (PK)
+    vehicleId: UUID ( FK -> Vehicle.id )
+    slotId: UUID ( FK -> ParkingSlot.id )
+    entryTime: TimeStamp
+    isActive: boolean
+
+
+5. Receipt
+    id : UUID (PK)
+    ticketId: UUID ( FK -> Ticket.id )
+    exitTime: TimeStamp
+    totalFee: Double
+    paymentStatus: Enum ( PENDING, SUCCESS, FAILED )
+
+
+6. PricingRule
+    id: UUID (PK)
+    vehicleType: Enum ( BIKE, CAR, TRUCK, EV )
+    ratePerHour: Double
+    flatRate: Double
+    ruleType: Enum ( FLAT, HOURLY )
+
+7. Payment
+    id: UUID (PK)
+    ticketId: UUID ( FK -> Ticket.id )
+    amount: int
+    paymentGateway: Enum ( RAZORPAY, STRIPE )
+    status: Enum ( PENDING, SUCCESS, FAILED )
+
+
+
+
+---------------------------------- DTOs -------------------------------
+
+1. EntryResponse
+    success: boolean
+    ticket: Ticket ( if successful )
+    message: String
+
+
+2. EntryRequest
+    licensePlate: String
+    vehicleTye: Enum ( BIKE, CAR, TRUCK, EV )
+
+
+3. ExitResponse
+    success: boolean
+    receipt: Receipt ( if successful )
+    message: String
+
+
+4. ExitRequest
+    ticketId: UUID
+
+
+5. AddFloorRequest
+    floorNumber: int
+
+
+6. AddSlotRequest
+    floorNumber: int
+    slotType: VehicleType ( which is Enum ( BIKE, CAR, TRUCK, EV ) )
+
+7. PricingRequest
+    vehicleType: VehicleType ( which is Enum ( BIKE, CAR, TRUCK, EV ) )
+    ratePerHour: Double
+    flatRate: Double
+
+
+8. HourlyPricingRequest
+    vehicleType: VehicleType ( which is Enum ( BIKE, CAR, TRUCK, EV ) )
+    ratePerHour: Double
+
+
+9. FlatPricingRequest
+    vehicleType: VehicleType ( which is Enum ( BIKE, CAR, TRUCK, EV ) )
+    flatRate: Double

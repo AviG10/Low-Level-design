@@ -1,0 +1,34 @@
+ARCHITECTURE LAYERS:
+UI -> Controller Layer (HTTP/API) -> Service Layer -> Repository Layer -> Domain Layer
+
+
+
+CONTROLLERS:
+1. EntryController
+    - EntryResponse enterVehicle ( EntryRequest entryRequest)
+
+2. ExitController
+    - ExitResponse exitVehicle ( EntryRequest entryRequest )
+
+3. AdminController
+    - void addFloor ( AddFloorRequest addFloorRequest )
+    - void addSlot ( AddSlotRequest addSlotRequest )
+    - void updatePricing ( PricingRequest pricingRequest )
+    - void updateHourlyPricing ( HourlyPricingRequest hourlyPricingRequest )
+    - void updateFlatPricing ( FlatPricingRequest flatPricingRequest )
+
+
+
+
+SERVICES:
+1. TicketService
+
+2. SlotService
+
+3. PricingService
+
+4. PaymentService
+
+5. ReceiptService
+
+6. AdminService

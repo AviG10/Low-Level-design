@@ -1,0 +1,35 @@
+FUNCTIONAL REQUIREMENTS:
+
+1. Entry Flow:
+ - Vehicle arrives at gate
+ - Assign slot based on vehicle type
+ - Generate ticket
+ - Mark slot as occupied
+ - Return entry response with success / failure status
+
+
+2. Exit Flow:
+ - Present ticket at exit
+ - Calculate fee using pricing rules (minimum of flat vs hourly Pricing)
+ - Process payment through payment Gateway
+ - Release slot and generate receipt
+ - Return exit response with success / failure status
+
+
+3. Admin Flow:
+ - Add/Edit/Delete floors and slots
+ - Define/update pricing rules based on vehicle type ( both flat and hourly rates )
+ - View current parking lot status
+
+
+----------------------------------------------------------------------------------------------
+
+EDGE CASES:
+ - Payment failure at exit - retry and hold slot
+ - Lost ticket - allow admin override
+ - System clock mismatch - system time validation
+ - Slot marked occupied wrongly - periodic validation
+
+
+----------------------------------------------------------------------------------------------
+
