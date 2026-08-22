@@ -22,13 +22,63 @@ CONTROLLERS:
 
 SERVICES:
 1. TicketService
+    - Ticket generateTicket ( Vehicle vehicle, ParkingSlot slot )
+    - Ticket getTicket( UUID ticketId )
 
 2. SlotService
+    - ParkingSlot allocateSlot ( VehicleType vehicleType )
+    - void releaseSlot ( UUID slotId )
 
 3. PricingService
+    - double calculateFee ( Ticket ticket ) ( minimum of Hourly and Flat Pricing )
 
 4. PaymentService
+    - boolean processPayment ( UUID ticketId, double amount )
+    - boolean processPaymentWithRetry ( UUID ticketId, double amount )
 
 5. ReceiptService
+    - Receipt generateReceipt ( UUID ticketId, double fee, boolean paymentStatus )
 
 6. AdminService
+    - void addFloor ( int floorNumber )
+    - void addSlot ( int floorNumber, VehicleType vehicleType )
+    - void updatePricing ( VehicleType vehicleType, double ratePerHour, double flatRate )
+    - void updateHourlyPricing ( VehicleType vehicleType, double ratePerHour )
+    - void updateFlatPricing ( VehicleType vehicleType, double flatRate )
+
+
+
+
+REPOSITORY:
+1. TicketRepository
+    - void save ( Ticket ticket )
+    - Ticket findById ( UUID ticketId )
+    - List<Ticket> findActiveTickets()
+    - void deactivateTicket ( UUID ticketId )
+
+2. SlotRepository
+    - void save ( ParkingSlot slot )
+    - ParkingSlot findById ( UUID slotId )
+    - ParkingSlot findAvailableSlot ( VehicleType vehicleType )
+
+3. FloorRepository
+    - void save ( Floor floor )
+    - Floor findByFloorNumber ( int floorNumber )
+
+4. PricingRuleRepository
+    - void save ( PricingRule rule )
+    - PricingRule findByVehicleType ( VehicleType vehicleType )
+
+5. PaymentRepository
+    - void save ( Payment payment )
+    - Payment findByTicketId ( UUID ticketId )
+
+
+INTERFACES:
+1. paymentGateWayAdapter
+    - boolean pay ( UUID ticketId, double amount )
+
+
+IMPLEMENTATIONS:
+1. RazorPayAdapter implements paymentGateWayAdapter
+2. stripeAdapter implement paymentGateWayAdapter
