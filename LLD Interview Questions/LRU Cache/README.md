@@ -2,7 +2,7 @@
 
 ## Functional Requirements
 
-1. **get(key) Operation**: Return the value if exists, otherwise return -1.
+1. **get(key) Operation**: Return the value if exists, otherwise return -1 or null.
 2. **put(key, value) Operation**: Insert a new key or update the value of existing key.
 3. **Capacity Management**: If the cache exceeds its capacity, it should automatically remove the least recently used item from cache.
 4. **Recency Updates**: Both get and put should update the recency of accessed or inserted item.
