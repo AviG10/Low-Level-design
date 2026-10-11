@@ -22,7 +22,7 @@ Unlike other systems, the design of LRU cache is centered around choosing the ri
 1. We need **fast key-based lookup** for cache read and updates.
 2. We need **fast ordering** to track item usage and enforce removal based on recency.
 
-### Data Structure Analysis
+### FAQs
 
 #### Why not HashMap?
 - For **O(1)** key access, HashMap is the obvious choice.
