@@ -178,3 +178,72 @@ This design satisfies the LRU requirements because:
 - each node stores its key to remove the correct entry from the map when a node is evicted.
 
 In short, the `HashMap` handles fast access, and the doubly linked list handles fast ordering and eviction. Together they provide the required O(1) behavior for both read and write operations.
+
+## Thread Safety and Concurrency in the Implementation
+
+The code uses `synchronized` on both `get()` and `put()`. This means only one thread can execute either method on the same cache instance at a time.
+
+### Why synchronization is needed
+
+- The cache state consists of two connected structures:
+  - `HashMap<K, Node<K, V>> map`
+  - `DoublyLinkedList<K, V> list`
+- These must always remain consistent.
+- If one thread updates the list while another updates the map at the same time, the cache can become invalid.
+
+### What can go wrong without locking
+
+- `moveToFront()`, `remove()`, `addFirst()`, and `removeLast()` all rewrite multiple pointers.
+- These pointer updates are not atomic as a group.
+- If two threads interleave these operations, the list can become corrupted.
+
+### Example of the race
+
+- Thread 1 runs `get("a")` and moves `a` to the front.
+- Thread 2 runs `put("d", 4)` and removes the LRU node from the tail.
+- Both touch the same node and neighbors in the list.
+- Their pointer updates may overlap and leave the map and list out of sync.
+
+### Why the lock must cover both methods
+
+- A lock around only `put()` would still allow `get()` to race with it.
+- A lock around only `get()` would still allow `put()` to race with it.
+- The cache is not safe unless both operations are serialized on the same instance.
+
+### Why even `get()` is not a read-only path
+
+- `get()` is not just a lookup.
+- On a hit, it calls `moveToFront(node)`.
+- That operation changes the order of the linked list.
+- So `get()` is effectively a write to the cache's ordering state.
+
+### Why `synchronized` is acceptable here
+
+- It keeps the implementation simple and correct.
+- It preserves the correctness of the map + list relationship.
+- For interview purposes, it shows awareness of concurrency and thread safety.
+
+### Bottleneck of a single global lock
+
+- One global lock guarantees correctness.
+- But it also serializes all requests.
+- In a heavy multi-threaded environment, every `get()` and `put()` waits behind the same lock.
+
+### Why this becomes a scalability issue
+
+- 16 threads hitting different keys still queue behind the same lock.
+- The cache becomes a single contention point.
+- Throughput is limited even though keys are unrelated.
+
+### Common optimization: striped locking
+
+- Split the cache into multiple shards.
+- Each shard has its own map, list, and lock.
+- Keys are assigned to a shard by hash.
+- Different shards can operate in parallel.
+
+### Practical conclusion
+
+- Correctness first: use one lock to protect the whole operation.
+- Performance later: optimize with sharding/striping if the single lock becomes a bottleneck.
+- In interview terms: `synchronized` is the simplest safe solution, and striping is the standard next step for high-throughput systems.

@@ -14,7 +14,7 @@ class LRUCache<K,V> {
         this.list = new DoublyLinkedList<>();
     }
 
-    public V get(K key){
+    public synchronized V get(K key){
         if(map.containsKey(key)){ // present in map
             Node<K, V> node = map.get(key);
             list.moveToFront(node);
@@ -24,7 +24,7 @@ class LRUCache<K,V> {
         return null; // Not present in map
     }
 
-    public void put(K key, V value){
+    public synchronized void put(K key, V value){
         if(map.containsKey(key)){ // present in map
             Node<K, V> node = map.get(key);
             node.value = value;
